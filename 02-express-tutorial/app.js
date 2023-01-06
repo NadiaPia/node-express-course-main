@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
 const logger  = require('./logger');
+const authorize  = require('./authorize');
 
-app.use(logger)
+
+app.use([authorize, logger])
 //app.use('/api', logger) //if to specify the url the middleware function logger will work for the routes that go after '/api'
 
 
