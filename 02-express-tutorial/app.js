@@ -9,6 +9,7 @@ app.use([authorize, logger])
 
 
 app.get('/', (req,res)=>{
+  console.log('req.user', req.user) //will consloe.log {name: 'john', id:3}
   res.send("Home")
 });
 
