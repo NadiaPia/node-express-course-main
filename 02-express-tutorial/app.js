@@ -9,9 +9,9 @@ const authorize  = require('./authorize');
 //but just reference the docs: ex: app.use(express.static('./public'));
 //3. third party - we have to install it.
 
-app.use([authorize, logger])
-//app.use('/api', logger) //if to specify the url the middleware function logger will work for the routes that go after '/api'
-
+app.use([authorize, logger]) //app.use('/api', logger) //if to specify the url the middleware function logger will work for the routes that go after '/api'
+//app.use(express.static('./public'));
+//app.use(morgan('tiny')). morgan is one of the popular-is needed to be installed (npm i morgan)
 
 app.get('/', (req,res)=>{
   console.log('req.user', req.user) //will consloe.log {name: 'john', id:3}
