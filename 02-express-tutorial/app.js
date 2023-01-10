@@ -1,36 +1,33 @@
 
 const express = require('express');
 const app = express();
-const logger  = require('./logger');
-const authorize  = require('./authorize');
+let { people } = require('./data');
 
-// middleware functions have options: 1. our own - we can set up our own middleware, for example authorize or login
-//2. express - it provides a few build in middleware functions. We don't worry about the functionality, 
-//but just reference the docs: ex: app.use(express.static('./public'));
-//3. third party - we have to install it.
+app.use(express.static('./methods-public'));
+app.use(express.urlencoded({extended:false})); //parse form data
+app.use(express.json()) //parse json (to have an access to the req.body)
 
-app.use([authorize, logger]) //app.use('/api', logger) //if to specify the url the middleware function logger will work for the routes that go after '/api'
-//app.use(express.static('./public'));
-//app.use(morgan('tiny')). morgan is one of the popular-is needed to be installed (npm i morgan)
-
-app.get('/', (req,res)=>{
-  console.log('req.user', req.user) //will consloe.log {name: 'john', id:3}
-  res.send("Home")
-});
-
-app.get('/about', (req,res)=>{
-  res.send("About")
+app.get('/api/people', (req,res)=>{
+  res.status(200).json({success:true,data:people})
 })
 
-app.get('/api/products', (req,res)=>{
-  res.send("products")
+app.post('/api/people', (req,res)=>{
+  const { name } = req.body //we have access to req.body because of the middleware app.use(express.json())
+  if(!name){
+    return res.status(401).json({success: false,msg:'please provide name value'})
+  }
+  res.status(201).json({success:true,person:name})
 })
 
-app.get('/api/items', (req,res)=>{
-  res.send("items")
+app.post('/login', (req,res)=>{
+  console.log(req.body.name)
+  const {name} = req.body  //name is from form in the index.html 
+  if(name){
+    return res.status(200).send(`Welcome ${name}`)
+  }
+  res.status(401).send('Please Provide Credential')
+
 })
-
-
 app.listen(5000, ()=> {
   console.log('server is listening on port 5000...')
 })
