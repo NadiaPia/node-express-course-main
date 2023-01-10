@@ -1,14 +1,14 @@
 
-post http://localhost:5000/api/postmen/people
+post http://localhost:5000/api/people/postmen
 content-Type: application/json
 
 {
-    "name":"nadia"
+    "name":"tolia"
 }
 
 ###
 
-put http://localhost:5000/api/people/3
+put http://localhost:5000/api/people/2
 content-Type: application/json
 
 {
@@ -17,5 +17,5 @@ content-Type: application/json
 }
 
 ###
-delete http://localhost:5000/api/people/3
+delete http://localhost:5000/api/people/2
 content-Type: application/json
