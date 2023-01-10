@@ -1,0 +1,21 @@
+
+post http://localhost:5000/api/postmen/people
+content-Type: application/json
+
+{
+    "name":"nadia"
+}
+
+###
+
+put http://localhost:5000/api/people/3
+content-Type: application/json
+
+{
+   
+    "name":"simba"
+}
+
+###
+delete http://localhost:5000/api/people/3
+content-Type: application/json
