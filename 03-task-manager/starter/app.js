@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const tasks = require('./routes/tasks');
 const connectDB = require('./db/connect');
+require('dotenv').config()  //in .env we keep secret data. For example, connect info to the db
 
 app.use(express.json());
 
@@ -17,7 +18,7 @@ const port = 3000;
 //we need DB start first and only after that server start work
 const start = async () => {
     try {
-        await connectDB()
+        await connectDB(process.env.MONGO_URI)
         app.listen(port, console.log(`Server is listening on port ${port}` ) )
 
     } catch(error) {
