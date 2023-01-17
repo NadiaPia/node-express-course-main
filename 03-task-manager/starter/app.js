@@ -1,11 +1,9 @@
-require('./db/connect')
+
 const express = require('express');
 const app = express();
-const tasks = require('./routes/tasks')
+const tasks = require('./routes/tasks');
+const connectDB = require('./db/connect');
 
-
-const port = 3000;
- 
 app.use(express.json());
 
 app.get('/hello', (req, res) =>{
@@ -14,9 +12,21 @@ app.get('/hello', (req, res) =>{
 
 app.use("/api/v1/tasks", tasks) //I am looking for the /api/v1/tasks in the tasks file
 
+const port = 3000;
+
+//we need DB start first and only after that server start work
+const start = async () => {
+    try {
+        await connectDB()
+        app.listen(port, console.log(`Server is listening on port ${port}` ) )
+
+    } catch(error) {
+        console.log(error)
+
+    }
+
+}
+
+start()
 
 
-
-
-
-app.listen(port, console.log(`Server is listening on port ${port}` ) )
