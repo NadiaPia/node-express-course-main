@@ -5,6 +5,7 @@ const tasks = require('./routes/tasks');
 const connectDB = require('./db/connect');
 require('dotenv').config()  //in .env we keep secret data. For example, connect info to the db
 
+app.use(express.static("./public")) //to include front-end (all files from public folder)
 app.use(express.json());
 
 app.get('/hello', (req, res) =>{
